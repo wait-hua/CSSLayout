@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>页面布局</title>
+	<style type="text/css">
+		.m-simple {
+			background-color: pink;
+		}
+		.m-simple {
+			display: inline-block;
+			width: 100px;
+			height: 100px;
+			vertical-align: middle;
+		}
+		.m-content {
+			width: 100px;
+			height: 100px;
+			background-color: yellow;
+			margin:0 auto;
+		}
+		a {
+			text-decoration: none;
+		}
+		.m-nav {
+			
+			text-align: center;
+		}
+		ul li {
+			list-style: none;
+			position: relative;
+			float: left;
+			width: 50px;
+			height: 30px;
+			line-height: 30px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+	<span>Before inline-block</span>
+	<span class="m-simple">inline Block</span>
+	<span>After inline-block</span>
+
+	<div>
+		<div class="m-content"></div>
+	</div>
+	<ul class="m-nav">
+		<li><a href="#">各地</a></li>
+		<li><a href="#">大区</a></li>
+		<li><a href="#">就出</a></li>
+		<li><a href="#">租房</a></li>
+	</ul>
+
+	
+</body>
+</html>
