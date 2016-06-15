@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tab</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	ul li{
+		list-style: none;
+		display: inline-block;
+		float: left;
+		width: 80px;
+		height: 30px;
+		background-color: #CCC;		
+		border-right: 1px solid #CCC;
+		line-height: 30px;
+		text-align: center;
+	}
+	a{
+		text-decoration: none;
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+	}
+	.clearfix:after{
+		content:'.';
+		clear: both;
+		display: block;
+		overflow: hidden;
+		height: 0;
+		visibility: hidden;
+	}
+	
+	body div{
+		width: 241px;
+		height: 100px;
+		background-color: #fff;
+		display: none;
+		border-left:1px solid #CCC;
+		border-right:1px solid #CCC;
+		border-bottom:1px solid #CCC;
+	}
+	.cur{
+		background-color: #fff;
+		border-bottom: none;
+
+	}
+	.on{
+		display: block;
+	}
+	</style>
+</head>
+<body>
+	<ul class="clearfix">
+		<li class="cur f-fr"><a href="#tab1">Tab1</a></li>
+		<li><a href="#tab2">Tab2</a></li>
+		<li><a href="#tab3">Tab3</a></li>
+	</ul>
+
+	<div id="tab1" class="on f-fl">
+		网易蜂巢服务		
+	</div>
+	
+	<div id="tab3">
+		在您同意接受本协议并注册成为蜂巢用户时
+	</div>
+	<div id="tab2">
+		本协议的主体是蜂巢网站用户
+	</div>
+	<script type="text/javascript" src="./javascript/jquery-3.0.0.js"></script>
+	<script type="text/javascript">
+		/*原生JS实现，这里对Class的remove和add处理做了不影响其他的class属性*/
+		var list = document.getElementsByTagName('li');
+		var div = document.getElementsByTagName('div');
+		for(var i=0; i<list.length; i++){
+			list[i].onmouseover = function(){
+				var n_tab = this.childNodes[0].getAttribute('href').substring(1);
+				RemoveClass(list, 'cur');
+				
+				//this.className="cur";
+				AddClass(this, 'cur');
+
+				RemoveClass(div, 'on');
+				Show(div, n_tab);
+			}
+		}
+		function RemoveClass(l, name){			
+			for(var i=0; i<l.length; i++){
+				var arr = l[i].className.split(' ');
+				var index = arr.indexOf(name);
+				if(index >= 0){
+					arr.splice(index,1);
+				}				
+				
+				l[i].className=arr.join(' ');
+			}
+		}
+
+		function AddClass(node, name){			
+			var arr = node.className.split(' ');
+			arr.splice(0,0, name);
+			node.className = arr.join(' ');
+		}
+
+		function Show(div, id){
+			for(var i=0; i<div.length; i++){				
+				if(div[i].getAttribute('id')== id){
+
+					AddClass(div[i], 'on');
+					// div[i].className = "on"; //这里不能像上面一样写成this.className="on"了，因为这里的this.是指向函数onclick里的list[i]
+				}
+			}
+		}
+		
+		/*JQuery方法实现——按div的书写顺序显示content*/
+		// $(function(){
+		// 	$('li').click(function(){
+		// 		$('li').eq($(this).index()).addClass('cur').siblings().removeClass('cur');
+		// 		// $('div').hide().eq($(this).index()).show();
+		// 		$('div').eq($(this).index()).addClass('on').siblings().removeClass('on');
+		// 	});
+		// });
+
+		/*JQuery方法实现——可以根据<a href="#TabId">里面的TabId来对应content*/
+		// $(function(){
+		// 	$('li').click(function(){
+		// 		var n_tab = $(this).find('a').attr('href').substring(1);
+		// 		console.log(n_tab);
+		// 		console.log(typeof(n_tab));
+		// 		$('li').removeClass('cur');
+		// 		$(this).addClass('cur');
+
+		// 		$('div').removeClass('on');
+		// 		$('#'+n_tab).addClass('on');
+		// 	});
+		// })
+	</script>
+</body>
+</html>
