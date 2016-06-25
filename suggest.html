@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NEJ实例 - 建议提示</title>
+    <meta charset="utf-8" />
+    
+    <style>
+        .box{position:relative;text-align:left;}
+        .txt{width:300px;height:26px;line-height:26px;}
+        .crd{position:absolute;top:30px;left:0;width:300px;background:#aaa;border:1px solid #eee;}
+        .itm{height:20px;line-height:20px;}
+         .crd .js-selected{background:yellow;}
+    </style>
+    
+  </head>
+  <body>
+	<!-- 优化后的提示框 目录结构和nej库里的目录结构一样nej/src/util/suggest/demo/suggest.html -->
+    <div class="box">
+      <input type="text" class="txt" id="abc"/>
+      <div class="crd" id="efg"></div>
+    </div>
+    
+    <script src="../../../define.js"></script>
+    <script>
+        NEJ.define([
+            'base/element',
+            'util/suggest/suggest'
+        ],function(_e,_t){
+            _t._$$Suggest._$allocate({
+                input:'abc',
+                body:'efg',
+                onchange:function(_value){
+                    var _sufix = ['@163.com','@126.com','@188.com','@vip.163.com','@vip.126.com','@yeah.net'];
+                    var _arr = [];
+                    for(var i=0;i<_sufix.length;i++){
+                        if(_value.indexOf('@') == -1){ 
+                            var _v = _value+_sufix[i];                           
+                            _arr.push('<div data-value="'+_v+'">'+ _value+_sufix[i]+'</div>');
+                        }else{
+                            var tmp = _value.substring(0,_value.indexOf('@'));
+                            var subval = _value.substring(_value.indexOf('@'));
+                            var _n = tmp+_sufix[i];                            
+                            if(_sufix[i].indexOf(subval)==0){
+                                _arr.push('<div data-value="'+_n+'" class="itm">'+tmp+_sufix[i]+'</div>');
+                            } 
+                        }                       
+                    }
+                    this._$update(_arr.join(''));
+                },
+                onselect:function(_value){                  
+                    
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
